@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,7 +43,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Material deselectedUnitMaterial;
 
-    
+
     void Awake()
     {
         instance = this;   
@@ -54,7 +52,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Camera not set!");
         }
 
-        units = FindObjectsOfType<Unit>().Where(x => x.isPlayable == true).ToArray();
+        units = FindObjectsOfType<Unit>().Where(x => x.teamId == 0).ToArray();
         SetUnitMaterial(deselectedUnitMaterial);
     }
 

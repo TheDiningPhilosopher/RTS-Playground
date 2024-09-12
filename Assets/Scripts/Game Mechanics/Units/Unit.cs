@@ -1,15 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO.IsolatedStorage;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
-    [Header("Playable")]
-    public bool isPlayable = true;
+
+    [SerializeField]
+    [Header("Team")]
+    public int teamId = 0;
 
     [Header("Unit Settings")]
     [SerializeField]
@@ -34,6 +31,8 @@ public class Unit : MonoBehaviour
     public List<GameObject> PosPreview {  get { return posPreviews; } }
 
 
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -56,7 +55,6 @@ public class Unit : MonoBehaviour
     }
 
     //For Initialization 
-    //Rename?
     private void SetFormation()
     {
         //TODO: Improve positioning
@@ -116,7 +114,7 @@ public class Unit : MonoBehaviour
                     + right * offset * (rowAgentCount+1); 
     }
 
-    //startPos is position of leftmost agent in first row
+    //startPos is the position of the leftmost agent in first row
     public Vector3 SetFormationPreview(Vector3 startPos, Vector3 endPos, Vector3 right, Vector3 currentRight, bool setTarget = false)
     {
         bool reverse = false;
