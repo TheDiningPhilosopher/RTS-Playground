@@ -75,6 +75,8 @@ public class UnitInputManager : MonoBehaviour
     private void UnitPositionPreview()
     {
         if (GameManager.Instance.GetSelectedUnits().Count == 0) return;
+
+        //Start unit positioning by setting the start position
         if (positionKeyDown && !positioningStartPosSet)
         {
             positioningStartDirection = GameManager.Instance.GetSelectedUnits()[0].transform.right.normalized;
@@ -85,9 +87,10 @@ public class UnitInputManager : MonoBehaviour
             {
                 positioningStartPos = hitInfo.point;
                 positioningStartPosSet = true;
-                PositionUnit(positioningStartPos, true);
+                PositionUnits(positioningStartPos, true);
             }
         }
+       
         if (positioningStartPosSet)
         {
             Ray ray = GameManager.Instance.MainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -95,11 +98,12 @@ public class UnitInputManager : MonoBehaviour
             if (Physics.Raycast(ray, out hitInfo))
             {
                 Vector3 currentPos = hitInfo.point;
-                PositionUnit(currentPos, true);
+                PositionUnits(currentPos, true);
             }
         }
     }
 
+    //Is called when the positioning button is released
     private void ReleasePositioning()
     {
         Ray ray = GameManager.Instance.MainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -107,11 +111,11 @@ public class UnitInputManager : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo))
         {
             Vector3 currentPos = hitInfo.point;
-            PositionUnit(currentPos, false || previewKeyDown, true);
+            PositionUnits(currentPos, false || previewKeyDown, true);
         }
         else
         {
-            PositionUnit(positioningStartPos, false || previewKeyDown, true);
+            PositionUnits(positioningStartPos, false || previewKeyDown, true);
         }
         
         positioningStartDirection = Vector2.zero;
@@ -120,28 +124,31 @@ public class UnitInputManager : MonoBehaviour
 
     }
 
-    private void PositionUnit(Vector3 currentPosition, bool previewActive, bool setTarget = false)
+    private void PositionUnits(Vector3 currentPosition, bool previewActive, bool setTarget = false)
     {
-        //TODO: Edge case currentPosition = positioningStartPos => return agentDirecton.right?
-        Vector3 directionVector = (currentPosition - positioningStartPos).normalized;
-
         var selectedUnits = GameManager.Instance.GetSelectedUnits();
         Vector3 startPos = positioningStartPos;
-        for (int i = 0; i < selectedUnits.Count; i++)
+
+        //Set the formation preview for each selected unit. 
+        //The start position of each unit is calculated by setting the previous unit
+        foreach (Unit unit in selectedUnits)
         {
-            if (setTarget)
+            unit.Agents.ForEach(y => y.PreviewActive(previewActive));
+
+            Vector3 directionVector = (currentPosition - positioningStartPos);
+
+            //Handle edge case currentPosition = positioningStartPos
+            if (directionVector.Equals(Vector3.zero))
             {
-                Debug.Log("startPos" + startPos);
-                Debug.Log("endPos´" + new Vector3(currentPosition.x / selectedUnits.Count, currentPosition.y, currentPosition.z));
+                directionVector = Vector3.right;
             }
-            selectedUnits[i].Agents.ForEach(y => y.PreviewActive(previewActive));
-            Vector3 nextStartPos = selectedUnits[i].SetFormationPreview(
+
+            startPos = unit.SetFormationPreview(
                 startPos,
-                new Vector3(currentPosition.x, currentPosition.y, currentPosition.z),
-                directionVector,
+                startPos + directionVector/selectedUnits.Count,
+                directionVector.normalized,
                 positioningStartDirection,
                 setTarget);
-            startPos = nextStartPos;
         }
     }
 

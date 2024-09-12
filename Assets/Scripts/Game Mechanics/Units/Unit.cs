@@ -121,7 +121,9 @@ public class Unit : MonoBehaviour
     {
         bool reverse = false;
         //TODO: Fix reverse
-        if((Vector2.SignedAngle(right, currentRight) > 90 || Vector2.SignedAngle(right, currentRight) < -90) && setTarget)
+        if((Vector2.SignedAngle(right, currentRight) > 90 
+            || Vector2.SignedAngle(right, currentRight) < -90) 
+            && setTarget)
         {
             Debug.Log("reversed");
             posPreviews.Reverse();
@@ -152,6 +154,11 @@ public class Unit : MonoBehaviour
             agents.ForEach(x => x.Move());
         }
         return nextStartPos;
+    }
+
+    private void ReverseFormation()
+    {
+
     }
 
     //Returns the min number of Agents in the first row of a formation
