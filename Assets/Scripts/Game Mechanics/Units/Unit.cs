@@ -10,6 +10,8 @@ public class Unit : MonoBehaviour
 
     [Header("Unit Settings")]
     [SerializeField]
+    private UnitType unitType;
+    [SerializeField]
     private GameObject agentPrefab;
     [SerializeField]
     private GameObject positionPreviewPrefab;
