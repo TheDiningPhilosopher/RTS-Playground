@@ -32,8 +32,8 @@ public class Unit : MonoBehaviour
     public List<Agent> Agents { get { return agents; } }
     public List<GameObject> PosPreview {  get { return posPreviews; } }
 
-
-
+    [Header("Combat")]
+    private Unit target;
 
     // Start is called before the first frame update
     void Awake()
@@ -177,5 +177,13 @@ public class Unit : MonoBehaviour
         return MinRow(agentCount) * 3;
 
     }
+
+    #region Combat
+    public void Attack(Unit unit)
+    {
+        target = unit;
+        //TODO: Move towards target, fight
+    }
+    #endregion
 
 }

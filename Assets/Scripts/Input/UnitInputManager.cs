@@ -274,8 +274,28 @@ public class UnitInputManager : MonoBehaviour
 
     #endregion
 
-    #region Combat
+    #region CombatInputs
+    #endregion
 
+    #region Combat
+    private void Attack()
+    {
+        Ray ray = GameManager.Instance.MainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Agent agent;
+
+            if (hit.transform.TryGetComponent<Agent>(out agent))
+            {
+                Unit unit = agent.transform.GetComponentInParent<Unit>();
+                if (unit.teamId == 0) return;
+
+                GameManager.Instance.GetSelectedUnits().ForEach(u => u.Attack(unit));
+            }
+        }
+    }
     #endregion
 
 }

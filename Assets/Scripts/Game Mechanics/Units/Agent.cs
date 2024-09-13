@@ -10,7 +10,6 @@ public class Agent : MonoBehaviour
     [SerializeField]
     private GameObject positionPreview;
 
-    
     [SerializeField]
     private NavMeshAgent pathFinder;
 
