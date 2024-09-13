@@ -54,6 +54,7 @@ public class Agent : MonoBehaviour
             Debug.LogWarning("Invalid path");
             pathFinder.SetDestination(positionPreview.transform.position);
         }
+        //TODO: Face forward when target reached
     }
 
 }

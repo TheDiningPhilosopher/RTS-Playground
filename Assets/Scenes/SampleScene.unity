@@ -377,8 +377,8 @@ MonoBehaviour:
   unitType: {fileID: 0}
   agentPrefab: {fileID: 7356363498645627422, guid: aa8c2292b7955f548ae60275eb68de82, type: 3}
   positionPreviewPrefab: {fileID: 3138430050884354418, guid: f5701b467ef0c484d8123847cea77156, type: 3}
-  unitSize: 64
-  formationRows: 8
+  unitSize: 16
+  formationRows: 4
   offset: 2.35
   agents: []
   posPreviews: []
