@@ -89,10 +89,10 @@ public class Unit : MonoBehaviour
         for(int j = 0; j < agentCount; depth++)
         {
             //Place last row in center
-            if (agentCount-j < rowAgentCount)
+            if (agentCount - j < rowAgentCount)
             {
                 int agentsLeft = agentCount - j;
-                float centerOffset = (rowAgentCount - agentsLeft) / 2;
+                float centerOffset = (float)(rowAgentCount - agentsLeft) / 2;
                 for (int i = 0; i < agentsLeft; i++, j++)
                 {
                     posPreviews[j].transform.rotation = Quaternion.Euler(0, -Vector3.Angle(right, Vector3.right), 0);
@@ -171,7 +171,7 @@ public class Unit : MonoBehaviour
     }
 
     //Returns the max number of Agents in the first row of a formation
-    //Ensures formation is at max 3 times as wide as it is deep
+    //Ensures formation is at max 3 times as wide as its minimal width
     private int MaxRow(int agentCount)
     {
         return MinRow(agentCount) * 3;
