@@ -100,7 +100,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PositionUnit"",
+                    ""name"": ""PositionUnitOrAttack"",
                     ""type"": ""Button"",
                     ""id"": ""af6d402c-7891-4252-880d-657b395fd29a"",
                     ""expectedControlType"": ""Button"",
@@ -381,7 +381,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard+Mouse"",
-                    ""action"": ""PositionUnit"",
+                    ""action"": ""PositionUnitOrAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -417,7 +417,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         m_Main_UnitPositionPreview = m_Main.FindAction("UnitPositionPreview", throwIfNotFound: true);
         m_Main_AddSelect = m_Main.FindAction("AddSelect", throwIfNotFound: true);
         m_Main_DeselectAll = m_Main.FindAction("DeselectAll", throwIfNotFound: true);
-        m_Main_PositionUnit = m_Main.FindAction("PositionUnit", throwIfNotFound: true);
+        m_Main_PositionUnitOrAttack = m_Main.FindAction("PositionUnitOrAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -487,7 +487,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_UnitPositionPreview;
     private readonly InputAction m_Main_AddSelect;
     private readonly InputAction m_Main_DeselectAll;
-    private readonly InputAction m_Main_PositionUnit;
+    private readonly InputAction m_Main_PositionUnitOrAttack;
     public struct MainActions
     {
         private @NewControls m_Wrapper;
@@ -500,7 +500,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         public InputAction @UnitPositionPreview => m_Wrapper.m_Main_UnitPositionPreview;
         public InputAction @AddSelect => m_Wrapper.m_Main_AddSelect;
         public InputAction @DeselectAll => m_Wrapper.m_Main_DeselectAll;
-        public InputAction @PositionUnit => m_Wrapper.m_Main_PositionUnit;
+        public InputAction @PositionUnitOrAttack => m_Wrapper.m_Main_PositionUnitOrAttack;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -534,9 +534,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @DeselectAll.started += instance.OnDeselectAll;
             @DeselectAll.performed += instance.OnDeselectAll;
             @DeselectAll.canceled += instance.OnDeselectAll;
-            @PositionUnit.started += instance.OnPositionUnit;
-            @PositionUnit.performed += instance.OnPositionUnit;
-            @PositionUnit.canceled += instance.OnPositionUnit;
+            @PositionUnitOrAttack.started += instance.OnPositionUnitOrAttack;
+            @PositionUnitOrAttack.performed += instance.OnPositionUnitOrAttack;
+            @PositionUnitOrAttack.canceled += instance.OnPositionUnitOrAttack;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -565,9 +565,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @DeselectAll.started -= instance.OnDeselectAll;
             @DeselectAll.performed -= instance.OnDeselectAll;
             @DeselectAll.canceled -= instance.OnDeselectAll;
-            @PositionUnit.started -= instance.OnPositionUnit;
-            @PositionUnit.performed -= instance.OnPositionUnit;
-            @PositionUnit.canceled -= instance.OnPositionUnit;
+            @PositionUnitOrAttack.started -= instance.OnPositionUnitOrAttack;
+            @PositionUnitOrAttack.performed -= instance.OnPositionUnitOrAttack;
+            @PositionUnitOrAttack.canceled -= instance.OnPositionUnitOrAttack;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -604,6 +604,6 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         void OnUnitPositionPreview(InputAction.CallbackContext context);
         void OnAddSelect(InputAction.CallbackContext context);
         void OnDeselectAll(InputAction.CallbackContext context);
-        void OnPositionUnit(InputAction.CallbackContext context);
+        void OnPositionUnitOrAttack(InputAction.CallbackContext context);
     }
 }

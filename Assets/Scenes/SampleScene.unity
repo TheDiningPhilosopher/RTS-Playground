@@ -889,7 +889,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1342701032}
         m_TargetAssemblyTypeName: UnitInputManager, Assembly-CSharp
-        m_MethodName: GetPositioningDown
+        m_MethodName: GetPositioningDownOrAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 1403538763}
   m_Layer: 0
   m_Name: Enemy Unit
-  m_TagString: Untagged
+  m_TagString: ClickHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

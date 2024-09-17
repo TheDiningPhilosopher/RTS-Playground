@@ -50,13 +50,24 @@ public class UnitInputManager : MonoBehaviour
         UnitPreviewActive(previewKeyDown);
     }
 
-    public void GetPositioningDown(InputAction.CallbackContext ctx)
+    public void GetPositioningDownOrAttack(InputAction.CallbackContext ctx)
     {
-        positionKeyDown = ctx.action.WasPressedThisFrame();
+        positionKeyDown = ctx.action.WasPressedThisFrame() && !CursorOverEnemy();
 
         if (ctx.action.WasReleasedThisFrame())
         {
-            ReleasePositioning();
+            if(positioningStartPosSet)
+            {
+                ReleasePositioning();
+            }
+            else
+            {
+                Unit enemy = CursorOverEnemy();
+                if(enemy)
+                {
+                    Attack(CursorOverEnemy());
+                }
+            }
         }
     }
 
@@ -274,27 +285,28 @@ public class UnitInputManager : MonoBehaviour
 
     #endregion
 
-    #region CombatInputs
-    #endregion
-
     #region Combat
-    private void Attack()
+    private Unit CursorOverEnemy()
     {
         Ray ray = GameManager.Instance.MainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
-
         if (Physics.Raycast(ray, out hit))
         {
-            Agent agent;
+            Collider col;
 
-            if (hit.transform.TryGetComponent<Agent>(out agent))
+            if (hit.transform.TryGetComponent<Collider>(out col))
             {
-                Unit unit = agent.transform.GetComponentInParent<Unit>();
-                if (unit.teamId == 0) return;
-
-                GameManager.Instance.GetSelectedUnits().ForEach(u => u.Attack(unit));
+                if (!col.CompareTag("ClickHitbox")) return null;
+                Unit unit = col.transform.GetComponentInParent<Unit>();
+                if (unit.teamId == 0) return null;
+                return unit;
             }
         }
+        return null;
+    }
+    private void Attack(Unit unit)
+    {
+         GameManager.Instance.GetSelectedUnits().ForEach(u => u.Attack(unit));
     }
     #endregion
 

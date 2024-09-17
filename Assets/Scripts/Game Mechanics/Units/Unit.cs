@@ -35,7 +35,6 @@ public class Unit : MonoBehaviour
     [Header("Combat")]
     private Unit target;
 
-    // Start is called before the first frame update
     void Awake()
     {
         SetAgents();
@@ -182,6 +181,7 @@ public class Unit : MonoBehaviour
     public void Attack(Unit unit)
     {
         target = unit;
+        Debug.Log("Attacking " + unit);
         //TODO: Move towards target, fight
     }
     #endregion

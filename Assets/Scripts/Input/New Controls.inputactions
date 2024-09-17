@@ -78,7 +78,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PositionUnit",
+                    "name": "PositionUnitOrAttack",
                     "type": "Button",
                     "id": "af6d402c-7891-4252-880d-657b395fd29a",
                     "expectedControlType": "Button",
@@ -359,7 +359,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard+Mouse",
-                    "action": "PositionUnit",
+                    "action": "PositionUnitOrAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
